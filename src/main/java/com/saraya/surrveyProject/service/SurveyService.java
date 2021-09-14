@@ -40,6 +40,32 @@ public class SurveyService {
 		
 		surveys.add(survey);
 	}
+	static {
+		Question question5 = new Question("Question1",
+				"Fisrt Man in the Earth", "Adam",
+				Arrays.asList("Neandertal","Lucie","Adam","Me"));
+		
+		Question question6 = new Question("Question2",
+				"First programming language in 2020","Python",
+				Arrays.asList("Python","C++","Java","Ruby"));
+		
+		Question question7 = new Question("Question3",
+				"Best education system in the world", "Finlande",
+				Arrays.asList("Finlande","USA","Singapour","China"));
+		
+		Question question8 = new Question("Question4",
+				"Second largest english speaking", "India",
+				Arrays.asList("India","USA","Russia","China"));
+		
+		
+		List<Question> questions2 = new ArrayList<>(Arrays
+				.asList(question5, question6, question7, question8));
+		
+		Survey survey2 = new Survey("Survey2", "The World survey",
+				"Survey about the world", questions2);
+		
+		surveys.add(survey2);
+	}
 	
 	public List<Survey> retrieveAllSurvey(){
 		return surveys;

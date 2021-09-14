@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saraya.surrveyProject.model.Question;
+import com.saraya.surrveyProject.model.Survey;
 import com.saraya.surrveyProject.service.SurveyService;
 
 @RestController
@@ -20,4 +21,16 @@ public class SurveyController {
 			String surveyId){
 		return ss.retrieveQuestions(surveyId);
 	}
+	
+	@GetMapping("/surveys/{surveyId}/questions/{questionId}")
+	public Question SingleQuestion(@PathVariable String surveyId, @PathVariable String questionId) {
+		return ss.retrieveASingleQuestion(surveyId, questionId);
+	}
+	
+	@GetMapping("/surveys")
+	public List<Survey> ExistingSurveys() {
+		return ss.retrieveAllSurvey();
+	}
+	
+	
 }
