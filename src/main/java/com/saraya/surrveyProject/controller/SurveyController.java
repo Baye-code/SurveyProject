@@ -31,6 +31,10 @@ public class SurveyController {
 	public List<Survey> ExistingSurveys() {
 		return ss.retrieveAllSurvey();
 	}
+	@GetMapping("/surveys/{surveyId}/questions/{questionId}/options")
+	public List<String> optionsByQuestion(@PathVariable String surveyId, @PathVariable String questionId) {
+		return ss.retrieveASingleQuestion(surveyId,questionId).getOptions();
+	}
 	
 	
 }
