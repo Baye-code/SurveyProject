@@ -1,5 +1,7 @@
 package com.saraya.surrveyProject.service;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,5 +94,60 @@ public class SurveyService {
 		}
 		return null;
 	}
-	
+	// Add functionnality
+	private SecureRandom random = new SecureRandom();
+
+	public Question addQuestion(String surveyId, Question question) {
+		Survey survey = retrieveSurveyById(surveyId);
+
+		if (survey == null) {
+			return null;
+		}
+
+		String randomId = new BigInteger(130, random).toString(32);
+		question.setId(randomId);
+
+		survey.getQuestions().add(question);
+
+		return question;
+	}
+	public Question findByID(String surveyId,String questionId) {
+		if(surveyId==null) {
+			return null;
+		}
+		for(Question question:retrieveQuestions(surveyId)) {
+			if(question.getId().equalsIgnoreCase(questionId)) {
+				return question;
+			}
+		}
+		return null;
+	}
+	public boolean deleteQuestion(String surveyId, String questionId) {
+		
+		return retrieveQuestions(surveyId).remove(findByID(surveyId,questionId));
+	}
+	public boolean updateInsideQuestion(String surveyId,String questionId,String description,  String correctAnswer,List<String> options) {
+		Question qt=findByID(surveyId,questionId);
+		if(qt.equals(null)) {
+			return false;
+		}
+		qt.setDescription(description);
+		qt.setCorrectAnswer(correctAnswer);
+		qt.setOptions(options);
+		return true;
+	}
+	public boolean updateQuestion(String surveyId, Question question) {
+		Question qt = findByID(surveyId, question.getId());
+		if(qt==null) {
+			return false;
+		}
+		
+		qt.setCorrectAnswer(question.getCorrectAnswer());
+		qt.setDescription(question.getDescription());
+		qt.setOptions(question.getOptions());
+		return true;
+		
+	}
 }
+	
+
